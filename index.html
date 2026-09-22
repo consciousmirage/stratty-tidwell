@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Stratty Tidwell</title>
+<meta name="description" content="Stratty Tidwell, model. Portfolio, digitals and measurements.">
+<meta name="theme-color" content="#f6f5f0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400&family=Open+Sans:wght@400&display=swap">
+<style>
+  :root {
+    --paper: #f6f5f0;
+    --plate: #ffffff;
+    --ink: #292a2c;
+    --pure: #000000;
+    --muted: #7a7a76;
+    --serif: "Bodoni Moda", "Didot", "Bodoni 72", Georgia, "Times New Roman", serif;
+    --sans: "Neue Haas Grotesk Text", "Helvetica Neue", Helvetica, Arial, system-ui, sans-serif;
+    --body: "Open Sans", "Source Sans 3", system-ui, sans-serif;
+    --gutter: 30px;
+    --section: clamp(72px, 10vw, 120px);
+    --nav-h: 64px;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--ink);
+    font: 400 18px/2.33 var(--body);
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+  }
+  body.locked { overflow: hidden; }
+  a, button { color: var(--pure); text-decoration: none; }
+  a:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
+  a:focus-visible, button:focus-visible { outline: 1px solid var(--pure); outline-offset: 4px; }
+  button { background: none; border: 0; padding: 0; font: inherit; cursor: pointer; }
+  img { display: block; max-width: 100%; }
+  [hidden] { display: none !important; }
+  section { scroll-margin-top: var(--nav-h); }
+
+  /* Nav */
+  .nav {
+    position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+    display: flex; justify-content: space-between; align-items: center; gap: 24px;
+    height: var(--nav-h);
+    padding-inline: var(--gutter);
+    background: var(--paper);
+    font: 400 18px/1 var(--sans);
+  }
+  .nav ul { display: flex; gap: 28px; margin: 0; padding: 0; list-style: none; }
+  .menu-btn { display: none; }
+
+  /* Mobile menu */
+  .sheet {
+    position: fixed; inset: 0; z-index: 30;
+    display: flex; flex-direction: column;
+    padding: env(safe-area-inset-top, 0px) var(--gutter) calc(30px + env(safe-area-inset-bottom, 0px));
+    background: var(--paper);
+  }
+  .sheet-top { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); font: 400 15px/1 var(--sans); }
+  .sheet nav { display: flex; flex-direction: column; gap: 6px; margin-top: auto; }
+  .sheet nav a { font: 400 clamp(48px, 15vw, 72px)/1.05 var(--serif); letter-spacing: -0.02em; }
+  .sheet-foot { display: flex; justify-content: space-between; margin-top: 40px; font: 400 15px/1 var(--sans); }
+
+  /* Nameplate */
+  .nameplate {
+    margin: 0;
+    padding: clamp(24px, 6vw, 80px) var(--gutter) 0;
+    font: 400 min(12.6vw, 196px)/1 var(--serif);
+    letter-spacing: -0.02em;
+    color: var(--pure);
+    white-space: nowrap;
+  }
+  .tagline {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px 30px;
+    padding: 24px var(--gutter) 0;
+    font: 400 18px/1.4 var(--sans);
+    color: var(--pure);
+  }
+
+  /* Photography plates */
+  .plate { position: relative; margin: 0; background: var(--plate); overflow: hidden; cursor: zoom-in; }
+  .plate img { width: 100%; height: 100%; object-fit: cover; }
+  .wide { aspect-ratio: 3 / 2; }
+  .tall { aspect-ratio: 4 / 5; }
+  .pair { display: grid; grid-template-columns: 1fr 1fr; margin-top: var(--section); }
+  .hero { margin-top: clamp(40px, 6vw, 80px); }
+  .bleed { margin-top: var(--section); }
+  .inset { padding-inline: var(--gutter); margin-top: var(--section); }
+  .inset .plate { width: min(58%, 820px); }
+  .inset.right .plate { margin-left: auto; }
+
+  /* Section heads + text */
+  .head {
+    display: flex; justify-content: space-between; align-items: baseline;
+    padding: var(--section) var(--gutter) 0;
+    font: 400 18px/1 var(--sans); color: var(--pure);
+  }
+  .text { padding: 36px var(--gutter) 0; max-width: calc(760px + var(--gutter) * 2); }
+  .text p { margin: 0 0 1em; }
+
+  /* Digitals */
+  .digitals {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px;
+    margin: 0; padding: 36px var(--gutter) 0; list-style: none;
+  }
+  .digitals figure { margin: 0; }
+  .digitals figcaption { font: 400 15px/1 var(--sans); color: var(--pure); margin-top: 12px; }
+
+  /* Measurements */
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 30px; margin: 0; padding: 36px var(--gutter) 0; }
+  .stats div { display: flex; flex-direction: column; gap: 10px; }
+  .stats dt { font: 400 13px/1 var(--sans); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .stats dd { margin: 0; font: 400 30px/1 var(--sans); color: var(--pure); font-variant-numeric: tabular-nums; }
+
+  /* Contact */
+  .contact {
+    display: flex; flex-direction: column; align-items: flex-start; gap: 4px;
+    padding: 36px var(--gutter) 0;
+    font: 400 clamp(34px, 4vw, 56px)/1.2 var(--serif); color: var(--pure);
+  }
+  footer {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    padding: var(--section) var(--gutter) calc(30px + env(safe-area-inset-bottom, 0px));
+    font: 400 15px/1 var(--sans); color: var(--pure);
+  }
+
+  /* Lightbox */
+  .lightbox {
+    position: fixed; inset: 0; z-index: 40;
+    display: grid; grid-template-rows: auto 1fr;
+    padding: env(safe-area-inset-top, 0px) 0 env(safe-area-inset-bottom, 0px);
+    background: var(--paper);
+    touch-action: pan-y;
+  }
+  .lb-bar { display: flex; justify-content: space-between; align-items: center; height: var(--nav-h); padding-inline: var(--gutter); font: 400 15px/1 var(--sans); font-variant-numeric: tabular-nums; }
+  .lb-stage { position: relative; min-height: 0; display: grid; place-items: center; padding: 0 var(--gutter) var(--gutter); }
+  .lb-stage img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .lb-prev, .lb-next { position: absolute; top: 0; bottom: 0; width: 30%; cursor: pointer; }
+  .lb-prev { left: 0; cursor: w-resize; }
+  .lb-next { right: 0; cursor: e-resize; }
+
+  @media (max-width: 900px) {
+    .digitals, .stats { grid-template-columns: repeat(2, 1fr); }
+    .inset .plate { width: 78%; }
+  }
+
+  /* Phone */
+  @media (max-width: 640px) {
+    :root { --gutter: 16px; --nav-h: 56px; --section: 72px; }
+    .nav { font-size: 15px; }
+    .nav ul { display: none; }
+    .menu-btn { display: block; }
+    .nameplate { font-size: 24vw; line-height: 0.92; white-space: normal; padding-top: 20px; }
+    .nameplate span { display: block; }
+    .tagline { font-size: 15px; padding-top: 18px; }
+    .head { font-size: 15px; }
+    body { font-size: 16px; line-height: 1.9; }
+    .hero { margin-top: 32px; gap: 4px; }
+    .pair { grid-template-columns: 1fr; gap: 4px; }
+    .inset .plate { width: 82%; }
+    /* digitals become a swipe row with a peek of the next card */
+    .digitals {
+      display: flex; gap: 12px;
+      overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+      padding-inline: var(--gutter); scroll-padding-inline: var(--gutter);
+    }
+    .digitals::-webkit-scrollbar { display: none; }
+    .digitals li { flex: 0 0 72%; scroll-snap-align: start; }
+    .stats { gap: 28px 16px; }
+    .stats dd { font-size: 24px; }
+    .contact { font-size: 28px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+
+<!--
+  PHOTOS live in images/. Swap any file with Stratty's real shot using the same name.
+  stratty-01, stratty-02 = real (Nate's shoot). Everything else is free Unsplash filler to replace:
+  look-01..05, digital-front, digital-profile, digital-full, digital-smile.
+-->
+
+<header class="nav">
+  <a href="#top">S+T</a>
+  <ul>
+    <li><a href="#work">Work</a></li>
+    <li><a href="#digitals">Digitals</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <button class="menu-btn" id="menu-open" aria-expanded="false" aria-controls="sheet">Menu</button>
+</header>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="sheet-top"><span>S+T</span><button id="menu-close">Close</button></div>
+  <nav aria-label="Mobile">
+    <a href="#work">Work</a>
+    <a href="#digitals">Digitals</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <div class="sheet-foot"><span>Stratty Tidwell</span><span>Model</span></div>
+</div>
+
+<main id="top">
+  <h1 class="nameplate"><span>Stratty</span> <span>Tidwell</span></h1>
+  <div class="tagline">
+    <span>Model</span>
+    <span>Salt Lake City, Utah</span>
+  </div>
+
+  <div class="pair hero">
+    <figure class="plate tall"><img src="images/stratty-01.jpg" alt="Stratty Tidwell sitting on the grass at golden hour" fetchpriority="high"></figure>
+    <figure class="plate tall"><img src="images/stratty-02.jpg" alt="Stratty Tidwell leaning back in a garden"></figure>
+  </div>
+
+  <section id="work" aria-label="Work">
+    <div class="head"><span>Work</span><span>2026</span></div>
+
+    <div class="pair">
+      <figure class="plate tall"><img src="images/look-01.jpg" alt="" loading="lazy" decoding="async"></figure>
+      <figure class="plate tall"><img src="images/look-02.jpg" alt="" loading="lazy" decoding="async"></figure>
+    </div>
+
+    <div class="inset right">
+      <figure class="plate tall"><img src="images/look-03.jpg" alt="" loading="lazy" decoding="async"></figure>
+    </div>
+
+    <figure class="plate wide bleed"><img src="images/look-04.jpg" alt="" loading="lazy" decoding="async"></figure>
+
+    <div class="inset">
+      <figure class="plate tall"><img src="images/look-05.jpg" alt="" loading="lazy" decoding="async"></figure>
+    </div>
+  </section>
+
+  <section id="digitals" aria-label="Digitals">
+    <div class="head"><span>Digitals</span><span>Unretouched</span></div>
+    <ul class="digitals">
+      <li><figure><div class="plate tall"><img src="images/digital-front.jpg" alt="Front digital" loading="lazy" decoding="async"></div><figcaption>Front</figcaption></figure></li>
+      <li><figure><div class="plate tall"><img src="images/digital-profile.jpg" alt="Profile digital" loading="lazy" decoding="async"></div><figcaption>Profile</figcaption></figure></li>
+      <li><figure><div class="plate tall"><img src="images/digital-full.jpg" alt="Full length digital" loading="lazy" decoding="async"></div><figcaption>Full length</figcaption></figure></li>
+      <li><figure><div class="plate tall"><img src="images/digital-smile.jpg" alt="Smiling digital" loading="lazy" decoding="async"></div><figcaption>Smile</figcaption></figure></li>
+    </ul>
+
+    <div class="head"><span>Measurements</span></div>
+    <dl class="stats">
+      <div><dt>Height</dt><dd>TBC</dd></div>
+      <div><dt>Chest</dt><dd>TBC</dd></div>
+      <div><dt>Waist</dt><dd>TBC</dd></div>
+      <div><dt>Inseam</dt><dd>TBC</dd></div>
+      <div><dt>Suit</dt><dd>TBC</dd></div>
+      <div><dt>Shoe</dt><dd>TBC</dd></div>
+      <div><dt>Hair</dt><dd>Blonde</dd></div>
+      <div><dt>Eyes</dt><dd>TBC</dd></div>
+    </dl>
+  </section>
+
+  <section id="about" aria-label="About">
+    <div class="head"><span>About</span></div>
+    <div class="text">
+      <p>Stratty Tidwell is a model based in Salt Lake City, working across editorial, commercial and lifestyle. He brings an easy, grounded presence to set, equally at home in the studio or out on location.</p>
+      <p>Available for editorial, campaign, lookbook and brand work in Utah and beyond.</p>
+    </div>
+  </section>
+
+  <section id="contact" aria-label="Contact">
+    <div class="head"><span>Contact</span><span>Bookings</span></div>
+    <div class="contact">
+      <a href="#contact">Email coming soon</a>
+      <a href="#contact">Instagram coming soon</a>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <span>Stratty Tidwell</span>
+  <span>© 2026</span>
+</footer>
+
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Photo viewer">
+  <div class="lb-bar"><span id="lb-count">1 / 1</span><button id="lb-close">Close</button></div>
+  <div class="lb-stage">
+    <img id="lb-img" alt="">
+    <button class="lb-prev" id="lb-prev" aria-label="Previous photo"></button>
+    <button class="lb-next" id="lb-next" aria-label="Next photo"></button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var body = document.body;
+
+  // Mobile menu
+  var sheet = document.getElementById('sheet'), openBtn = document.getElementById('menu-open');
+  function setMenu(open) {
+    sheet.hidden = !open; openBtn.setAttribute('aria-expanded', open);
+    body.classList.toggle('locked', open);
+  }
+  openBtn.addEventListener('click', function () { setMenu(true); });
+  document.getElementById('menu-close').addEventListener('click', function () { setMenu(false); });
+  sheet.querySelectorAll('nav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+
+  // Lightbox: tap any photo, swipe or tap sides to move through
+  var imgs = Array.prototype.slice.call(document.querySelectorAll('.plate img'));
+  var lb = document.getElementById('lightbox'), lbImg = document.getElementById('lb-img'), lbCount = document.getElementById('lb-count');
+  var i = 0;
+  function show(n) {
+    i = (n + imgs.length) % imgs.length;
+    lbImg.src = imgs[i].currentSrc || imgs[i].src; lbImg.alt = imgs[i].alt;
+    lbCount.textContent = (i + 1) + ' / ' + imgs.length;
+  }
+  function openLb(n) { show(n); lb.hidden = false; body.classList.add('locked'); }
+  function closeLb() { lb.hidden = true; body.classList.remove('locked'); }
+  imgs.forEach(function (img, n) { img.parentElement.addEventListener('click', function () { openLb(n); }); });
+  document.getElementById('lb-close').addEventListener('click', closeLb);
+  document.getElementById('lb-prev').addEventListener('click', function () { show(i - 1); });
+  document.getElementById('lb-next').addEventListener('click', function () { show(i + 1); });
+  document.addEventListener('keydown', function (e) {
+    if (!sheet.hidden && e.key === 'Escape') setMenu(false);
+    if (lb.hidden) return;
+    if (e.key === 'Escape') closeLb();
+    if (e.key === 'ArrowLeft') show(i - 1);
+    if (e.key === 'ArrowRight') show(i + 1);
+  });
+  var x0 = null;
+  lb.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+  lb.addEventListener('touchend', function (e) {
+    if (x0 === null) return;
+    var dx = e.changedTouches[0].clientX - x0; x0 = null;
+    if (Math.abs(dx) > 40) show(dx < 0 ? i + 1 : i - 1);
+  });
+})();
+</script>
+</body>
+</html>
